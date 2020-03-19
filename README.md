@@ -15,17 +15,22 @@
 * Create the bootstrap class with the SpringBoot annotation (Scratch Point)
 * testing Go to localhost:8080/hello (it already open)
 
-### Spring Security and JWT Configuration
+## Spring Security and JWT Configuration
 * Generating JWT: Expose a POST API with mapping /authenticate. On passing the correct username and password, it will generate a JSON Web Token (JWT).
 * Validating JWT: If a user tries to access the GET API with mapping /hello, it will allow access only if a request has a valid JSON Web Token (JWT).
 * Generating JWT ![alt text](https://www.javainuse.com/62-2-min.JPG "JWT Flow")
 * Validating JWT ![alt text](https://www.javainuse.com/62-3-min.JPG "Validating JWT")
 * Add the Spring Security and JWT dependencies
+### JWT Configuration Methods
 * JwtTokenUtil => The JwtTokenUtil is responsible for performing JWT operations like creation and validation. It makes use of the io.jsonwebtoken.Jwts for achieving this.
+### Controllers
 * JwtAuthenticationController => Expose a POST API /authenticate using the JwtAuthenticationController. The POST API gets the username and password in the body. Using the Spring Authentication Manager, we authenticate the username and password. If the credentials are valid, a JWT token is created using the JWTTokenUtil and is provided to the client.
+### Models
 * JwtRequest => This class is required for storing the username and password we received from the client.
 * JwtResponse => This class is required for creating a response containing the JWT to be returned to the user.
+### Filters
 * JwtRequestFilter => The JwtRequestFilter extends the Spring Web Filter OncePerRequestFilter class. For any incoming request, this Filter class gets executed. It checks if the request has a valid JWT token. If it has a valid JWT Token, then it sets the authentication in context to specify that the current user is authenticated.
+### Configure Spring Security
 * WebSecurityConfig => This class extends the WebSecurityConfigurerAdapter. This is a convenience class that allows customization to both WebSecurity and HttpSecurity.
 ### Testing 
 * Then, start the Spring Boot application.
